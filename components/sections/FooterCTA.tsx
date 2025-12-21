@@ -19,10 +19,10 @@ export default function FooterCTA() {
               </Pill>
             </div>
             <h2 className="mb-6 text-4xl font-light leading-tight tracking-tight text-white md:text-6xl">
-              Let's Work Together
+              Let&apos;s Work Together
             </h2>
             <p className="mb-8 mx-auto max-w-2xl text-lg text-white/70">
-              Ready to bring your vision to life? Get in touch and let's create something amazing.
+              Ready to bring your vision to life? Get in touch and let&apos;s create something amazing.
             </p>
             <ButtonPill variant="primary" className="mx-auto">
               Book a Free Call

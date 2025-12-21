@@ -1,6 +1,6 @@
 import Container from "@/components/ui/Container";
 import SectionShell from "@/components/ui/SectionShell";
-import PlaceholderImage from "@/components/ui/PlaceholderImage";
+import BounceCards from "@/components/ui/BounceCards";
 import Pill from "@/components/ui/Pill";
 import ButtonPill from "@/components/ui/ButtonPill";
 import Divider from "@/components/ui/Divider";
@@ -35,9 +35,31 @@ export default function Process() {
       <Container>
         <SectionShell>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* Left: Image */}
-            <div>
-              <PlaceholderImage aspectRatio="4/3" rounded="2xl" />
+            {/* Left: BounceCards */}
+            <div className="flex items-center justify-center">
+              <BounceCards
+                className="custom-bounceCards"
+                images={[
+                  "https://picsum.photos/400/400?grayscale",
+                  "https://picsum.photos/500/500?grayscale",
+                  "https://picsum.photos/600/600?grayscale",
+                  "https://picsum.photos/700/700?grayscale",
+                  "https://picsum.photos/300/300?grayscale",
+                ]}
+                containerWidth={500}
+                containerHeight={250}
+                animationDelay={1}
+                animationStagger={0.08}
+                easeType="elastic.out(1, 0.5)"
+                transformStyles={[
+                  "rotate(5deg) translate(-150px)",
+                  "rotate(0deg) translate(-70px)",
+                  "rotate(-5deg)",
+                  "rotate(5deg) translate(70px)",
+                  "rotate(-5deg) translate(150px)",
+                ]}
+                enableHover={true}
+              />
             </div>
 
             {/* Right: Content */}

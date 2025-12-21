@@ -1,6 +1,6 @@
 import Container from "@/components/ui/Container";
 import SectionShell from "@/components/ui/SectionShell";
-import PlaceholderImage from "@/components/ui/PlaceholderImage";
+import CircularGallery from "@/components/ui/CircularGallery";
 import Pill from "@/components/ui/Pill";
 import ButtonPill from "@/components/ui/ButtonPill";
 import Chip from "@/components/ui/Chip";
@@ -56,18 +56,30 @@ export default function Services() {
   return (
     <section id="services" className="py-20">
       <Container>
-        <SectionShell>
-          {/* Header */}
-          <div className="mb-12 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* Left: Content */}
-            <div>
+        <SectionShell className="relative overflow-hidden">
+          {/* CircularGallery Background - spans entire section */}
+          <div className="absolute inset-0 -z-10">
+            <CircularGallery
+              bend={3}
+              textColor="#ffffff"
+              borderRadius={0.05}
+              scrollEase={0.02}
+            />
+            {/* Dark overlay to make gallery darker */}
+            <div className="absolute inset-0 bg-black/60" />
+          </div>
+
+          {/* Content - positioned on top */}
+          <div className="relative z-10">
+            {/* Header */}
+            <div className="mb-12 rounded-2xl border border-white/20 bg-white/5 p-8 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
               <div className="mb-4">
                 <Pill>Design services</Pill>
               </div>
-              <h2 className="mb-4 text-4xl font-light leading-tight tracking-tight text-white md:text-6xl">
+              <h2 className="mb-4 text-4xl font-light leading-tight tracking-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] md:text-6xl">
                 Services
               </h2>
-              <p className="mb-6 text-lg text-white/70">
+              <p className="mb-6 text-lg text-white/90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
                 Comprehensive design solutions tailored to your needs
               </p>
 
@@ -87,34 +99,29 @@ export default function Services() {
               </div>
             </div>
 
-            {/* Right: Image */}
-            <div>
-              <PlaceholderImage aspectRatio="4/3" rounded="2xl" />
+            {/* Service cards grid */}
+            <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+              {serviceCards.map((card) => (
+                <div
+                  key={card.title}
+                  className="rounded-2xl border border-white/20 bg-white/5 p-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-200 hover:border-white/30 hover:bg-white/8"
+                >
+                  <h3 className="mb-3 text-xl font-medium text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
+                    {card.title}
+                  </h3>
+                  <p className="text-white/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">{card.body}</p>
+                </div>
+              ))}
             </div>
-          </div>
 
-          {/* Service cards grid */}
-          <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {serviceCards.map((card) => (
-              <div
-                key={card.title}
-                className="rounded-2xl border border-white/10 bg-white/3 p-6 transition-all duration-200 hover:border-white/15"
-              >
-                <h3 className="mb-3 text-xl font-medium text-white">
-                  {card.title}
-                </h3>
-                <p className="text-white/70">{card.body}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Capability tags scroller */}
-          <div className="flex gap-3 overflow-x-auto scrollbar-hide">
-            {capabilities.map((capability) => (
-              <Chip key={capability} className="flex-shrink-0">
-                {capability}
-              </Chip>
-            ))}
+            {/* Capability tags scroller */}
+            <div className="flex gap-3 overflow-x-auto scrollbar-hide rounded-2xl border border-white/20 bg-white/5 p-4 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+              {capabilities.map((capability) => (
+                <Chip key={capability} className="flex-shrink-0">
+                  {capability}
+                </Chip>
+              ))}
+            </div>
           </div>
         </SectionShell>
       </Container>

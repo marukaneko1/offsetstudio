@@ -49,7 +49,7 @@ export default function FAQ() {
             {/* Left: Image + Title */}
             <div>
               <div className="mb-4">
-                <Pill>FAQ'S</Pill>
+                <Pill>FAQ&apos;S</Pill>
               </div>
               <h2 className="mb-8 text-4xl font-light leading-tight tracking-tight text-white md:text-6xl">
                 Answers

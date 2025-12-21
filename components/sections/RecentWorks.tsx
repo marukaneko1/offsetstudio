@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Container from "@/components/ui/Container";
 import PlaceholderImage from "@/components/ui/PlaceholderImage";
 import Divider from "@/components/ui/Divider";
@@ -10,8 +13,61 @@ const works = [
 ];
 
 export default function RecentWorks() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const lastScrollY = useRef(0);
+  const scrollPosition = useRef(0);
+  const isScrolling = useRef(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || !scrollContainerRef.current || isScrolling.current) return;
+
+      const section = sectionRef.current;
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Check if section is in viewport
+      if (rect.top < viewportHeight && rect.bottom > 0) {
+        const currentScrollY = window.scrollY;
+        const scrollDelta = currentScrollY - lastScrollY.current;
+        lastScrollY.current = currentScrollY;
+
+        // Calculate how much of the section is visible
+        const sectionTop = rect.top;
+        const sectionHeight = rect.height;
+        const visibleRatio = Math.max(0, Math.min(1, (viewportHeight - sectionTop) / sectionHeight));
+
+        // Only scroll horizontally when section is in view
+        if (visibleRatio > 0 && visibleRatio < 1) {
+          const container = scrollContainerRef.current;
+          const maxScroll = container.scrollWidth - container.clientWidth;
+          
+          // Scroll right when scrolling down, left when scrolling up
+          const scrollSpeed = 2; // Adjust this to control scroll speed
+          scrollPosition.current += scrollDelta > 0 ? scrollSpeed : -scrollSpeed;
+          scrollPosition.current = Math.max(0, Math.min(maxScroll, scrollPosition.current));
+
+          isScrolling.current = true;
+          container.scrollTo({
+            left: scrollPosition.current,
+            behavior: "smooth",
+          });
+
+          // Reset flag after animation
+          setTimeout(() => {
+            isScrolling.current = false;
+          }, 100);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <section id="recent-works" className="py-20">
+    <section ref={sectionRef} id="recent-works" className="py-20">
       <Container>
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
@@ -43,11 +99,14 @@ export default function RecentWorks() {
         <Divider className="mb-12" />
 
         {/* Works row */}
-        <div className="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide md:grid md:grid-cols-4 md:overflow-visible">
+        <div
+          ref={scrollContainerRef}
+          className="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide md:overflow-x-auto"
+        >
           {works.map((work) => (
             <div
               key={work.id}
-              className="group min-w-[250px] flex-shrink-0 cursor-pointer transition-transform duration-200 hover:-translate-y-1 md:min-w-0"
+              className="group min-w-[250px] flex-shrink-0 cursor-pointer transition-transform duration-200 hover:-translate-y-1 md:min-w-[300px]"
             >
               <PlaceholderImage
                 aspectRatio="4/3"

@@ -1,6 +1,8 @@
+ "use client";
+
 import Container from "@/components/ui/Container";
-import PlaceholderImage from "@/components/ui/PlaceholderImage";
 import Chip from "@/components/ui/Chip";
+import Lanyard from "@/components/ui/Lanyard";
 
 const skills = [
   "Brand Design",
@@ -27,7 +29,7 @@ export default function About() {
               Meet Meily
             </h2>
             <p className="mb-6 text-lg leading-relaxed text-white/70">
-              I'm a passionate designer with over 15 years of experience creating
+              I&apos;m a passionate designer with over 15 years of experience creating
               memorable brand experiences. I specialize in transforming complex ideas
               into elegant, user-centered designs.
             </p>
@@ -56,9 +58,9 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right: Image */}
-          <div>
-            <PlaceholderImage aspectRatio="4/3" rounded="2xl" />
+          {/* Right: Interactive Lanyard */}
+          <div className="flex items-center justify-center">
+            <Lanyard />
           </div>
         </div>
       </Container>

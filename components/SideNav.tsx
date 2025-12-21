@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 type SectionId =
@@ -30,34 +30,68 @@ const sections: { id: SectionId; label: string }[] = [
 
 export default function SideNav() {
   const [activeId, setActiveId] = useState<SectionId>("hero");
+  const activeIdRef = useRef<SectionId>("hero");
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    activeIdRef.current = activeId;
+  }, [activeId]);
 
-        if (visible[0]) {
-          const id = visible[0].target.id as SectionId;
-          if (sections.some((s) => s.id === id)) {
-            setActiveId(id);
+  useEffect(() => {
+    let ticking = false;
+
+    const updateActive = () => {
+      const marker = window.innerHeight * 0.3; // 30% from top, under header
+      let nextId: SectionId | null = null;
+
+      for (const section of sections) {
+        const el = document.getElementById(section.id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+
+        // Section covers the marker line
+        if (rect.top <= marker && rect.bottom >= marker) {
+          nextId = section.id;
+          break;
+        }
+      }
+
+      // Fallback: if none covers marker, pick the last section above it
+      if (!nextId) {
+        for (let i = sections.length - 1; i >= 0; i -= 1) {
+          const el = document.getElementById(sections[i].id);
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.top < marker) {
+            nextId = sections[i].id;
+            break;
           }
         }
-      },
-      {
-        root: null,
-        rootMargin: "-40% 0px -50% 0px",
-        threshold: [0.1, 0.25, 0.5, 0.75],
       }
-    );
 
-    sections.forEach((section) => {
-      const el = document.getElementById(section.id);
-      if (el) observer.observe(el);
-    });
+      if (nextId && nextId !== activeIdRef.current) {
+        activeIdRef.current = nextId;
+        setActiveId(nextId);
+      }
+    };
 
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        ticking = false;
+        updateActive();
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    // Initial calculation
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   return (
@@ -73,7 +107,7 @@ export default function SideNav() {
               scroll={true}
             >
               <span
-                className={`flex h-3 w-3 items-center justify-center rounded-full border transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:outline-none ${
+                className={`flex h-3 w-3 items-center justify-center rounded-full border transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:outline-none ${
                   isActive
                     ? "scale-110 border-white/60 bg-white shadow-[0_0_12px_rgba(255,255,255,0.6)]"
                     : "border-white/15 bg-white/10 group-hover:border-white/40 group-hover:bg-white/40"

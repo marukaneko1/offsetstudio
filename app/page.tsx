@@ -1,3 +1,4 @@
+import TopHeader from "@/components/sections/TopHeader";
 import Hero from "@/components/sections/Hero";
 import HeroCollage from "@/components/sections/HeroCollage";
 import ProjectsMosaic from "@/components/sections/ProjectsMosaic";
@@ -16,9 +17,10 @@ import Footer from "@/components/sections/Footer";
 export default function Home() {
   return (
     <main>
+      <TopHeader />
       <Hero />
-      <HeroCollage />
       <ProjectsMosaic />
+      <HeroCollage />
       <ProjectsCarouselRow />
       <ProjectsCTA />
       <About />
