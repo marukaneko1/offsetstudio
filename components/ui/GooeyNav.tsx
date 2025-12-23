@@ -16,6 +16,7 @@ export interface GooeyNavProps {
   timeVariance?: number;
   colors?: number[];
   initialActiveIndex?: number;
+  activeIndex?: number; // External control of active index
 }
 
 const GooeyNav: React.FC<GooeyNavProps> = ({
@@ -27,12 +28,16 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   timeVariance = 300,
   colors = [1, 2, 3, 1, 2, 3, 1, 4],
   initialActiveIndex = 0,
+  activeIndex: externalActiveIndex,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
   const filterRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
-  const [activeIndex, setActiveIndex] = useState<number>(initialActiveIndex);
+  const [internalActiveIndex, setInternalActiveIndex] = useState<number>(initialActiveIndex);
+  
+  // Use external activeIndex if provided, otherwise use internal state
+  const activeIndex = externalActiveIndex !== undefined ? externalActiveIndex : internalActiveIndex;
 
   const noise = (n = 1) => n / 2 - Math.random() * n;
 
@@ -115,7 +120,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     const targetEl = e.currentTarget;
     if (activeIndex === index) return;
 
-    setActiveIndex(index);
+    // Only update internal state if not controlled externally
+    if (externalActiveIndex === undefined) {
+      setInternalActiveIndex(index);
+    }
     updateEffectPosition(targetEl);
 
     if (filterRef.current) {
@@ -156,7 +164,13 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     const activeLi = navRef.current.querySelectorAll("li")[activeIndex] as HTMLElement;
     if (activeLi) {
       updateEffectPosition(activeLi);
-      // Do not activate text glow on initial load to avoid double label overlap.
+      
+      // Update text effect when activeIndex changes externally
+      if (textRef.current && externalActiveIndex !== undefined) {
+        textRef.current.classList.remove("active");
+        void textRef.current.offsetWidth; // Force reflow
+        textRef.current.classList.add("active");
+      }
     }
     const resizeObserver = new ResizeObserver(() => {
       const currentActiveLi = navRef.current?.querySelectorAll("li")[activeIndex] as HTMLElement;
@@ -166,7 +180,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     });
     resizeObserver.observe(containerRef.current);
     return () => resizeObserver.disconnect();
-  }, [activeIndex]);
+  }, [activeIndex, externalActiveIndex]);
 
   return (
     <>
