@@ -99,7 +99,7 @@ export default function TopHeader() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-2 md:top-4 z-40">
       <Container className="flex justify-center px-2 md:px-6">
-        <div className="pointer-events-auto inline-flex items-center rounded-full border border-white/15 bg-white/5/80 px-2 py-1 md:px-3 md:py-1.5 backdrop-blur-md shadow-[0_18px_60px_rgba(0,0,0,0.65)] max-w-full overflow-hidden">
+        <div className="pointer-events-auto inline-flex items-center rounded-full border border-white/15 bg-white/5/80 px-2 py-1 md:px-3 md:py-1.5 backdrop-blur-md shadow-[0_18px_60px_rgba(0,0,0,0.65)] max-w-full overflow-x-auto scrollbar-hide">
           <GooeyNav items={items} activeIndex={activeIndex} />
         </div>
       </Container>
