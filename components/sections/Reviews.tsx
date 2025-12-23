@@ -1,9 +1,11 @@
+"use client";
+
 import Container from "@/components/ui/Container";
 import SectionShell from "@/components/ui/SectionShell";
-import PlaceholderImage from "@/components/ui/PlaceholderImage";
 import Pill from "@/components/ui/Pill";
 import ButtonPill from "@/components/ui/ButtonPill";
 import Divider from "@/components/ui/Divider";
+import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
 interface Review {
   name: string;
@@ -15,24 +17,24 @@ interface Review {
 
 const reviews: Review[] = [
   {
-    name: "June Lee",
+    name: "Maru Kaneko",
+    role: "Founder",
+    company: "Void Asset Management",
+    quote: "Exceptional design work that elevated our brand presence and communication.",
+    rating: 5.0,
+  },
+  {
+    name: "Efraim Levy",
     role: "CEO",
-    company: "GreenRoots",
-    quote: "Outstanding work! The design perfectly captured our brand vision and exceeded all expectations.",
+    company: "Seed Pulse Fund",
+    quote: "Outstanding creative solutions that perfectly aligned with our vision and goals.",
     rating: 5.0,
   },
   {
-    name: "Jona Carter",
-    role: "Founder",
-    company: "EcoLux",
-    quote: "Professional, creative, and incredibly responsive. The final deliverables were exactly what we needed.",
-    rating: 5.0,
-  },
-  {
-    name: "Sofia Toms",
-    role: "Founder",
-    company: "GreenK Studios",
-    quote: "Working with this team was a game-changer. The attention to detail and creative solutions were impressive.",
+    name: "John Carter",
+    role: "CMO",
+    company: "JWS",
+    quote: "Professional, strategic, and results-driven design that made a significant impact.",
     rating: 5.0,
   },
 ];
@@ -60,64 +62,57 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export default function Reviews() {
+  const { openModal } = useBookingModal();
+
   return (
     <section id="reviews" className="py-20">
       <Container>
         <SectionShell>
           {/* Header */}
-          <div className="mb-12 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* Left: Image */}
-            <div>
-              <PlaceholderImage aspectRatio="4/3" rounded="2xl" />
+          <div className="mb-12 text-center">
+            <div className="mb-4 flex justify-center">
+              <Pill>Reviews</Pill>
             </div>
+            <h2 className="mb-4 text-4xl font-light leading-tight tracking-tight text-white md:text-6xl">
+              Client Reviews
+            </h2>
+            <p className="mb-8 text-lg text-white/70">
+              What our clients say about working with us
+            </p>
 
-            {/* Right: Content */}
-            <div>
-              <div className="mb-4">
-                <Pill>Reviews</Pill>
-              </div>
-              <h2 className="mb-4 text-4xl font-light leading-tight tracking-tight text-white md:text-6xl">
-                Client Reviews
-              </h2>
-              <p className="mb-8 text-lg text-white/70">
-                What our clients say about working with us
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <ButtonPill variant="primary">Book a Free Call</ButtonPill>
-                <ButtonPill variant="secondary">See Services</ButtonPill>
-              </div>
+            {/* CTAs */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+              <ButtonPill variant="primary" onClick={openModal}>
+                Book a Free Call
+              </ButtonPill>
+              <ButtonPill variant="secondary">See Services</ButtonPill>
             </div>
           </div>
 
           {/* Review cards */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {reviews.map((review) => (
-              <div
-                key={review.name}
-                className="rounded-2xl border border-white/10 bg-white/3 p-6 transition-all duration-200 hover:border-white/15"
-              >
-                {/* Avatar */}
-                <div className="mb-4 h-12 w-12 rounded-full bg-gradient-to-br from-white/20 to-white/10" />
+                {reviews.map((review) => (
+                  <div
+                    key={review.name}
+                    className="rounded-2xl border border-white/10 bg-white/3 p-6 transition-all duration-200 hover:border-white/15"
+                  >
+                    {/* Name and role */}
+                    <div className="mb-2">
+                      <div className="font-medium text-white">{review.name}</div>
+                      <div className="text-sm text-white/60">
+                        {review.role} of {review.company}
+                      </div>
+                    </div>
 
-                {/* Name and role */}
-                <div className="mb-2">
-                  <div className="font-medium text-white">{review.name}</div>
-                  <div className="text-sm text-white/60">
-                    {review.role} of {review.company}
+                    <Divider className="mb-4" />
+
+                    {/* Quote */}
+                    <p className="mb-4 text-white/70">{review.quote}</p>
+
+                    {/* Rating */}
+                    <StarRating rating={review.rating} />
                   </div>
-                </div>
-
-                <Divider className="mb-4" />
-
-                {/* Quote */}
-                <p className="mb-4 text-white/70">{review.quote}</p>
-
-                {/* Rating */}
-                <StarRating rating={review.rating} />
-              </div>
-            ))}
+                ))}
           </div>
         </SectionShell>
       </Container>

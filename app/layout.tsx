@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SideNav from "@/components/SideNav";
+import { BookingModalProvider } from "@/components/providers/BookingModalProvider";
 
 export const metadata: Metadata = {
   title: "Offset Studio",
@@ -15,8 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-black text-white">
-        <SideNav />
-        {children}
+        <BookingModalProvider>
+          <SideNav />
+          {children}
+        </BookingModalProvider>
       </body>
     </html>
   );

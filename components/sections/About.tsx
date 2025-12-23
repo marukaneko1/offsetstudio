@@ -5,17 +5,17 @@ import Chip from "@/components/ui/Chip";
 import Lanyard from "@/components/ui/Lanyard";
 
 const skills = [
-  "Brand Design",
-  "UI/UX",
-  "Packaging",
-  "Web Design",
-  "Illustration",
+  "Visual Identity",
+  "Brand Consistency",
+  "Design Systems",
+  "Creative Direction",
+  "Art Direction",
 ];
 
-const experience = [
-  { role: "Senior Designer", company: "Creative Studio", years: "2020-2024" },
-  { role: "Design Lead", company: "Digital Agency", years: "2018-2020" },
-  { role: "Designer", company: "Startup Inc", years: "2015-2018" },
+const services = [
+  { service: "Brand Identity", category: "Brand & Identity", description: "Complete visual identity systems" },
+  { service: "UI/UX Design", category: "Digital Design", description: "User-centered interface design" },
+  { service: "Motion & Animation", category: "Creative Services", description: "Dynamic brand experiences" },
 ];
 
 export default function About() {
@@ -26,12 +26,10 @@ export default function About() {
           {/* Left: Text content */}
           <div>
             <h2 className="mb-6 text-4xl font-light leading-tight tracking-tight text-white md:text-6xl">
-              Meet Meily
+              Visuals matter
             </h2>
             <p className="mb-6 text-lg leading-relaxed text-white/70">
-              I&apos;m a passionate designer with over 15 years of experience creating
-              memorable brand experiences. I specialize in transforming complex ideas
-              into elegant, user-centered designs.
+              Whether it&apos;s a website, a business proposal, a deck, or ad it should all be one theme continuously and be perfectly executed. Every touchpoint is an opportunity to reinforce your brand identity and create a cohesive experience that resonates with your audience. From the smallest detail to the grandest campaign, visual consistency builds trust, recognition, and lasting impact.
             </p>
 
             {/* Chips */}
@@ -41,26 +39,27 @@ export default function About() {
               ))}
             </div>
 
-            {/* Experience table */}
-            <div className="space-y-4">
-              {experience.map((exp, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between border-b border-white/10 pb-4"
-                >
-                  <div>
-                    <div className="font-medium text-white">{exp.role}</div>
-                    <div className="text-sm text-white/60">{exp.company}</div>
-                  </div>
-                  <div className="text-sm text-white/60">{exp.years}</div>
+          {/* Services table */}
+          <div className="space-y-4">
+            {services.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between border-b border-white/10 pb-4"
+              >
+                <div>
+                  <div className="font-medium text-white">{item.service}</div>
+                  <div className="text-sm text-white/60">{item.category}</div>
                 </div>
-              ))}
-            </div>
+                <div className="text-sm text-white/60">{item.description}</div>
+              </div>
+            ))}
+          </div>
           </div>
 
           {/* Right: Interactive Lanyard */}
-          <div className="flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-4">
             <Lanyard />
+            <p className="text-sm text-white/60">Pull on me</p>
           </div>
         </div>
       </Container>

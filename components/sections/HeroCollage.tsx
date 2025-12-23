@@ -3,9 +3,13 @@
 import { useEffect, useRef } from "react";
 import Container from "@/components/ui/Container";
 import Cubes, { CubesRef } from "@/components/ui/Cubes";
+import ButtonPill from "@/components/ui/ButtonPill";
+import Link from "next/link";
+import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
 export default function HeroCollage() {
   const cubeRefs = useRef<(CubesRef | null)[]>([]);
+  const { openModal } = useBookingModal();
 
   useEffect(() => {
     const scheduleNextRipple = () => {
@@ -148,6 +152,19 @@ export default function HeroCollage() {
               Don&apos;t settle for less
             </h2>
           </div>
+        </div>
+
+        {/* CTAs below cubes */}
+        <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-8 mt-8">
+          <Link
+            href="/projects"
+            className="text-white/70 transition-colors hover:text-white"
+          >
+            All Projects →
+          </Link>
+          <ButtonPill variant="primary" onClick={openModal}>
+            Book a Free Call
+          </ButtonPill>
         </div>
       </Container>
     </section>

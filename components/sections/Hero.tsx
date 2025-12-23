@@ -1,9 +1,18 @@
+"use client";
+
 import Container from "@/components/ui/Container";
 import Pill from "@/components/ui/Pill";
 import ButtonPill from "@/components/ui/ButtonPill";
 import LiquidEther from "@/components/ui/LiquidEther";
+import {
+  useBookingModal,
+  useServicesListModal,
+} from "@/components/providers/BookingModalProvider";
 
 export default function Hero() {
+  const { openModal } = useBookingModal();
+  const { openServicesModal } = useServicesListModal();
+
   return (
     <section
       id="hero"
@@ -52,13 +61,17 @@ export default function Hero() {
 
         {/* Subcopy */}
         <p className="mx-auto mb-8 max-w-2xl text-lg text-white/70 md:text-xl">
-          Transforming ideas into beautiful, functional designs that resonate with your audience
+          Let us transform your ideas into beautiful, functional designs that resonate with your audience
         </p>
 
         {/* CTAs */}
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <ButtonPill variant="primary">Get Started Now</ButtonPill>
-          <ButtonPill variant="secondary">See Projects</ButtonPill>
+          <ButtonPill variant="primary" onClick={openModal}>
+            Book a Free Call
+          </ButtonPill>
+          <ButtonPill variant="secondary" onClick={openServicesModal}>
+            See Services
+          </ButtonPill>
         </div>
       </Container>
     </section>

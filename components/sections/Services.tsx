@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@/components/ui/Container";
 import SectionShell from "@/components/ui/SectionShell";
 import CircularGallery from "@/components/ui/CircularGallery";
@@ -5,6 +7,10 @@ import Pill from "@/components/ui/Pill";
 import ButtonPill from "@/components/ui/ButtonPill";
 import Chip from "@/components/ui/Chip";
 import Divider from "@/components/ui/Divider";
+import {
+  useBookingModal,
+  useServicesListModal,
+} from "@/components/providers/BookingModalProvider";
 
 interface ServiceCard {
   title: string;
@@ -53,6 +59,9 @@ const capabilities = [
 ];
 
 export default function Services() {
+  const { openModal } = useBookingModal();
+  const { openServicesModal } = useServicesListModal();
+
   return (
     <section id="services" className="py-20">
       <Container>
@@ -94,8 +103,12 @@ export default function Services() {
 
               {/* CTAs */}
               <div className="flex flex-col gap-4 sm:flex-row">
-                <ButtonPill variant="primary">Book a Free Call</ButtonPill>
-                <ButtonPill variant="secondary">See Projects</ButtonPill>
+                <ButtonPill variant="primary" onClick={openModal}>
+                  Book a Free Call
+                </ButtonPill>
+                <ButtonPill variant="secondary" onClick={openServicesModal}>
+                  See Services
+                </ButtonPill>
               </div>
             </div>
 
@@ -115,12 +128,20 @@ export default function Services() {
             </div>
 
             {/* Capability tags scroller */}
-            <div className="flex gap-3 overflow-x-auto scrollbar-hide rounded-2xl border border-white/20 bg-white/5 p-4 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
-              {capabilities.map((capability) => (
-                <Chip key={capability} className="flex-shrink-0">
-                  {capability}
-                </Chip>
-              ))}
+            <div className="flex flex-col gap-4 rounded-2xl border border-white/20 bg-white/5 p-4 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+              <div className="flex gap-3 overflow-x-auto scrollbar-hide">
+                {capabilities.map((capability) => (
+                  <Chip key={capability} className="flex-shrink-0">
+                    {capability}
+                  </Chip>
+                ))}
+              </div>
+              <button
+                onClick={openServicesModal}
+                className="text-left text-sm text-white/60 hover:text-white transition-colors underline underline-offset-4"
+              >
+                View full services list →
+              </button>
             </div>
           </div>
         </SectionShell>

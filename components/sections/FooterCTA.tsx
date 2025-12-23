@@ -1,9 +1,14 @@
+"use client";
+
 import Container from "@/components/ui/Container";
 import SectionShell from "@/components/ui/SectionShell";
 import Pill from "@/components/ui/Pill";
 import ButtonPill from "@/components/ui/ButtonPill";
+import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
 export default function FooterCTA() {
+  const { openModal } = useBookingModal();
+
   return (
     <section id="contact" className="py-20">
       <Container>
@@ -24,7 +29,7 @@ export default function FooterCTA() {
             <p className="mb-8 mx-auto max-w-2xl text-lg text-white/70">
               Ready to bring your vision to life? Get in touch and let&apos;s create something amazing.
             </p>
-            <ButtonPill variant="primary" className="mx-auto">
+            <ButtonPill variant="primary" className="mx-auto" onClick={openModal}>
               Book a Free Call
             </ButtonPill>
 

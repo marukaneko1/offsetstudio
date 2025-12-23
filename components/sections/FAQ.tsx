@@ -4,7 +4,6 @@ import { useState } from "react";
 import Container from "@/components/ui/Container";
 import SectionShell from "@/components/ui/SectionShell";
 import Pill from "@/components/ui/Pill";
-import PlaceholderImage from "@/components/ui/PlaceholderImage";
 
 interface FAQItem {
   question: string;
@@ -20,7 +19,7 @@ const faqs: FAQItem[] = [
   {
     question: "How long does a typical project take?",
     answer:
-      "Project timelines vary based on scope and complexity. Most projects range from 4-8 weeks, with larger projects taking 12+ weeks. We'll provide a detailed timeline in your proposal.",
+      "1-4 weeks, larger projects taking 6+ weeks",
   },
   {
     question: "Do you work with clients remotely?",
@@ -54,7 +53,6 @@ export default function FAQ() {
               <h2 className="mb-8 text-4xl font-light leading-tight tracking-tight text-white md:text-6xl">
                 Answers
               </h2>
-              <PlaceholderImage aspectRatio="4/3" rounded="2xl" />
             </div>
 
             {/* Right: Accordion */}

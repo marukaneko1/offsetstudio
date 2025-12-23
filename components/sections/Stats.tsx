@@ -8,7 +8,7 @@ interface Stat {
 const stats: Stat[] = [
   { value: "180+", label: "Design projects completed" },
   { value: "96%", label: "Client satisfaction rate" },
-  { value: "15+", label: "Years of experience" },
+  { value: "20+", label: "Years of combined experience" },
 ];
 
 export default function Stats() {
