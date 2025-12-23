@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Container from "@/components/ui/Container";
 import SectionShell from "@/components/ui/SectionShell";
 import BounceCards from "@/components/ui/BounceCards";
@@ -35,47 +34,37 @@ const steps: Step[] = [
 
 export default function Process() {
   const { openModal } = useBookingModal();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   return (
-    <section id="process" className="py-12 sm:py-16 md:py-20">
+    <section id="process" className="py-20">
       <Container>
         <SectionShell>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
             {/* Left: BounceCards */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-[500px]">
-                <BounceCards
-                  className="custom-bounceCards"
-                  images={[
-                    "https://picsum.photos/400/400?grayscale",
-                    "https://picsum.photos/500/500?grayscale",
-                    "https://picsum.photos/600/600?grayscale",
-                    "https://picsum.photos/700/700?grayscale",
-                    "https://picsum.photos/300/300?grayscale",
-                  ]}
-                  containerWidth={isMobile ? 300 : 500}
-                  containerHeight={isMobile ? 150 : 250}
-                  animationDelay={1}
-                  animationStagger={0.08}
-                  easeType="elastic.out(1, 0.5)"
-                  transformStyles={[
-                    "rotate(5deg) translate(-150px)",
-                    "rotate(0deg) translate(-70px)",
-                    "rotate(-5deg)",
-                    "rotate(5deg) translate(70px)",
-                    "rotate(-5deg) translate(150px)",
-                  ]}
-                  enableHover={true}
-                />
-              </div>
+              <BounceCards
+                className="custom-bounceCards"
+                images={[
+                  "https://picsum.photos/400/400?grayscale",
+                  "https://picsum.photos/500/500?grayscale",
+                  "https://picsum.photos/600/600?grayscale",
+                  "https://picsum.photos/700/700?grayscale",
+                  "https://picsum.photos/300/300?grayscale",
+                ]}
+                containerWidth={500}
+                containerHeight={250}
+                animationDelay={1}
+                animationStagger={0.08}
+                easeType="elastic.out(1, 0.5)"
+                transformStyles={[
+                  "rotate(5deg) translate(-150px)",
+                  "rotate(0deg) translate(-70px)",
+                  "rotate(-5deg)",
+                  "rotate(5deg) translate(70px)",
+                  "rotate(-5deg) translate(150px)",
+                ]}
+                enableHover={true}
+              />
             </div>
 
             {/* Right: Content */}

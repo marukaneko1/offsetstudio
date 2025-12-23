@@ -63,7 +63,7 @@ export default function Services() {
   const { openServicesModal } = useServicesListModal();
 
   return (
-    <section id="services" className="py-12 sm:py-16 md:py-20">
+    <section id="services" className="py-20">
       <Container>
         <SectionShell className="relative overflow-hidden">
           {/* CircularGallery Background - spans entire section */}

@@ -20,7 +20,7 @@ const services = [
 
 export default function About() {
   return (
-    <section id="about" className="py-12 sm:py-16 md:py-20">
+    <section id="about" className="py-20">
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left: Text content */}

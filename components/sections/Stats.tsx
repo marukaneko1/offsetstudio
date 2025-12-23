@@ -13,7 +13,7 @@ const stats: Stat[] = [
 
 export default function Stats() {
   return (
-    <section id="stats" className="py-12 sm:py-16 md:py-20">
+    <section id="stats" className="py-20">
       <Container>
         <div className="rounded-2xl border border-white/10 bg-white/5 p-8 md:p-12">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
