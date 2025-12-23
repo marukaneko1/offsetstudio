@@ -4,9 +4,10 @@ export default function ProjectsMosaic() {
   return (
     <section id="projects" className="py-20">
       <Container>
-        {/* Projects will be added here */}
+        <div>
+          {/* Projects will be added here */}
+        </div>
       </Container>
     </section>
   );
 }
-
