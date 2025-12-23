@@ -352,16 +352,18 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         <nav className="relative flex" style={{ transform: "translate3d(0,0,0.01px)" }}>
           <ul
             ref={navRef}
-            className="relative z-[3] m-0 flex list-none gap-6 px-4 py-1.5"
+            className="relative z-[3] m-0 flex list-none gap-2 px-2 py-1 sm:gap-3 sm:px-3 sm:py-1.5 overflow-x-auto scrollbar-hide"
             style={{
               color: "white",
               textShadow: "0 1px 1px hsl(205deg 30% 10% / 0.2)",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
             }}
           >
             {items.map((item, index) => (
               <li
                 key={item.href}
-                className={`relative cursor-pointer rounded-full text-sm transition-[background-color_color_box-shadow] duration-300 ease shadow-[0_0_0.5px_1.5px_transparent] ${
+                className={`relative cursor-pointer rounded-full text-xs sm:text-sm transition-[background-color_color_box-shadow] duration-300 ease shadow-[0_0_0.5px_1.5px_transparent] ${
                   activeIndex === index ? "active" : ""
                 }`}
               >
@@ -369,7 +371,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                   href={item.href}
                   onClick={(e) => handleClick(e, index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
-                  className={`inline-block px-4 py-2 outline-none transition-colors duration-300 ${
+                  className={`inline-block px-2 py-1.5 sm:px-3 sm:py-2 outline-none transition-colors duration-300 ${
                     activeIndex === index ? "text-black" : "text-white"
                   }`}
                 >

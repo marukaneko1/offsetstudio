@@ -37,7 +37,7 @@ export default function HeroCollage() {
   }, []);
 
   return (
-    <section className="py-20">
+    <section className="py-12 sm:py-16 md:py-20">
       <Container>
         <div className="relative grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
           {/* 6 Cubes arranged in 3 columns, 2 rows */}

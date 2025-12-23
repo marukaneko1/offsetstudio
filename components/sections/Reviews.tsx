@@ -86,7 +86,7 @@ export default function Reviews() {
   const { openServicesModal } = useServicesListModal();
 
   return (
-    <section id="reviews" className="py-20">
+    <section id="reviews" className="py-12 sm:py-16 md:py-20">
       <Container>
         <SectionShell>
           {/* Header */}
