@@ -10,7 +10,7 @@ export default function FooterCTA() {
   const { openModal } = useBookingModal();
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="py-12 md:py-20">
       <Container>
         <SectionShell>
           <div className="text-center">

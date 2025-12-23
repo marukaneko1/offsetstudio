@@ -275,7 +275,7 @@ export default function ServicesListModal({
 
       {/* Modal */}
       <div
-        className={`relative z-[101] w-full max-w-6xl max-h-[90vh] rounded-2xl border border-white/30 bg-black p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 overflow-hidden flex flex-col ${
+        className={`relative z-[101] w-full max-w-6xl max-h-[90vh] rounded-2xl border border-white/30 bg-black p-4 md:p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 overflow-hidden flex flex-col ${
           isOpen
             ? "opacity-100 scale-100"
             : "pointer-events-none opacity-0 scale-95"
@@ -307,9 +307,9 @@ export default function ServicesListModal({
         </button>
 
         {/* Header */}
-        <div className="mb-6 pr-10">
-          <h2 className="text-3xl font-light text-white">Full Services List</h2>
-          <p className="mt-2 text-white/60">
+        <div className="mb-4 md:mb-6 pr-8 md:pr-10">
+          <h2 className="text-2xl md:text-3xl font-light text-white">Full Services List</h2>
+          <p className="mt-2 text-sm md:text-base text-white/60">
             Complete list of services we offer with pricing ranges
           </p>
         </div>
@@ -320,22 +320,22 @@ export default function ServicesListModal({
             <table className="w-full border-collapse">
               <thead className="sticky top-0 bg-black/95 z-10">
                 <tr className="border-b border-white/20">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-white/80">
+                  <th className="text-left py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm font-medium text-white/80">
                     Service Category
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-white/80">
+                  <th className="text-left py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm font-medium text-white/80">
                     Specific Service Offering
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-white/80">
+                  <th className="text-left py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm font-medium text-white/80">
                     What it solves
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-white/80">
+                  <th className="text-left py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm font-medium text-white/80">
                     Typical buyers
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-white/80">
+                  <th className="text-left py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm font-medium text-white/80">
                     Mid-Tier Range
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-white/80">
+                  <th className="text-left py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm font-medium text-white/80">
                     Luxury Range
                   </th>
                 </tr>
@@ -346,22 +346,22 @@ export default function ServicesListModal({
                     key={index}
                     className="group border-b border-white/5 hover:bg-white transition-all duration-300 cursor-pointer"
                   >
-                    <td className="py-3 px-4 text-sm text-white/90 font-medium transition-colors duration-300 group-hover:text-black">
+                    <td className="py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm text-white/90 font-medium transition-colors duration-300 group-hover:text-black">
                       {service.category}
                     </td>
-                    <td className="py-3 px-4 text-sm text-white/80 transition-colors duration-300 group-hover:text-black">
+                    <td className="py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm text-white/80 transition-colors duration-300 group-hover:text-black">
                       {service.service}
                     </td>
-                    <td className="py-3 px-4 text-sm text-white/70 transition-colors duration-300 group-hover:text-black/80">
+                    <td className="py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm text-white/70 transition-colors duration-300 group-hover:text-black/80">
                       {service.solves}
                     </td>
-                    <td className="py-3 px-4 text-sm text-white/70 transition-colors duration-300 group-hover:text-black/80">
+                    <td className="py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm text-white/70 transition-colors duration-300 group-hover:text-black/80">
                       {service.buyers}
                     </td>
-                    <td className="py-3 px-4 text-sm text-white/80 transition-colors duration-300 group-hover:text-black">
+                    <td className="py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm text-white/80 transition-colors duration-300 group-hover:text-black">
                       {service.midTier}
                     </td>
-                    <td className="py-3 px-4 text-sm text-white/80 transition-colors duration-300 group-hover:text-black">
+                    <td className="py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm text-white/80 transition-colors duration-300 group-hover:text-black">
                       {service.luxury}
                     </td>
                   </tr>

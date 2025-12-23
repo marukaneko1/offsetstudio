@@ -36,7 +36,7 @@ export default function Process() {
   const { openModal } = useBookingModal();
 
   return (
-    <section id="process" className="py-20">
+    <section id="process" className="py-12 md:py-20">
       <Container>
         <SectionShell>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
