@@ -4,9 +4,10 @@ export default function ProjectsCarouselRow() {
   return (
     <section className="py-20">
       <Container>
-        {/* Projects carousel will be added here */}
+        <div>
+          {/* Projects carousel will be added here */}
+        </div>
       </Container>
     </section>
   );
 }
-
