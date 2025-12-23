@@ -50,9 +50,12 @@ export default function FAQ() {
               <div className="mb-4">
                 <Pill>FAQ&apos;S</Pill>
               </div>
-              <h2 className="mb-8 text-4xl font-light leading-tight tracking-tight text-white md:text-6xl">
+              <h2 className="mb-4 text-4xl font-light leading-tight tracking-tight text-white md:text-6xl">
                 Answers
               </h2>
+              <p className="text-lg text-white/70">
+                We are a luxury design studio committed to delivering exceptional work that exceeds expectations. Our approach combines meticulous attention to detail with efficient project management, ensuring we produce the highest quality designs within the most efficient timelines. Every project receives our full dedication and expertise, from initial concept to final delivery.
+              </p>
             </div>
 
             {/* Right: Accordion */}

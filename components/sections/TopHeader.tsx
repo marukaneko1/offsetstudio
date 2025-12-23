@@ -6,7 +6,6 @@ import GooeyNav from "@/components/ui/GooeyNav";
 
 const items = [
   { label: "Home", href: "#hero" },
-  { label: "Projects", href: "#projects" },
   { label: "About", href: "#about" },
   { label: "Process", href: "#process" },
   { label: "Services", href: "#services" },

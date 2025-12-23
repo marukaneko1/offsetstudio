@@ -6,6 +6,9 @@ import { BookingModalProvider } from "@/components/providers/BookingModalProvide
 export const metadata: Metadata = {
   title: "Offset Studio",
   description: "Portfolio website",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

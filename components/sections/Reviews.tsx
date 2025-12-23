@@ -5,7 +5,10 @@ import SectionShell from "@/components/ui/SectionShell";
 import Pill from "@/components/ui/Pill";
 import ButtonPill from "@/components/ui/ButtonPill";
 import Divider from "@/components/ui/Divider";
-import { useBookingModal } from "@/components/providers/BookingModalProvider";
+import {
+  useBookingModal,
+  useServicesListModal,
+} from "@/components/providers/BookingModalProvider";
 
 interface Review {
   name: string;
@@ -45,16 +48,33 @@ function StarRating({ rating }: { rating: number }) {
       <span className="text-lg font-medium text-white">{rating}</span>
       <div className="flex gap-0.5">
         {[...Array(5)].map((_, i) => (
-          <svg
-            key={i}
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="text-yellow-400"
-          >
-            <path d="M8 0L10.163 5.528L16 6.112L12 10.056L12.944 16L8 13.056L3.056 16L4 10.056L0 6.112L5.837 5.528L8 0Z" />
-          </svg>
+          <div key={i} className="relative">
+            {/* Empty star (always visible) */}
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+              className="text-yellow-400/40"
+            >
+              <path d="M8 0L10.163 5.528L16 6.112L12 10.056L12.944 16L8 13.056L3.056 16L4 10.056L0 6.112L5.837 5.528L8 0Z" />
+            </svg>
+            {/* Filled star (fills on hover with animation) */}
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="text-yellow-400 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out"
+              style={{
+                transitionDelay: `${i * 80}ms`,
+              }}
+            >
+              <path d="M8 0L10.163 5.528L16 6.112L12 10.056L12.944 16L8 13.056L3.056 16L4 10.056L0 6.112L5.837 5.528L8 0Z" />
+            </svg>
+          </div>
         ))}
       </div>
     </div>
@@ -63,6 +83,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function Reviews() {
   const { openModal } = useBookingModal();
+  const { openServicesModal } = useServicesListModal();
 
   return (
     <section id="reviews" className="py-20">
@@ -85,7 +106,9 @@ export default function Reviews() {
               <ButtonPill variant="primary" onClick={openModal}>
                 Book a Free Call
               </ButtonPill>
-              <ButtonPill variant="secondary">See Services</ButtonPill>
+              <ButtonPill variant="secondary" onClick={openServicesModal}>
+                See Services
+              </ButtonPill>
             </div>
           </div>
 
@@ -94,7 +117,7 @@ export default function Reviews() {
                 {reviews.map((review) => (
                   <div
                     key={review.name}
-                    className="rounded-2xl border border-white/10 bg-white/3 p-6 transition-all duration-200 hover:border-white/15"
+                    className="group rounded-2xl border border-white/10 bg-white/3 p-6 transition-all duration-200 hover:border-white/15"
                   >
                     {/* Name and role */}
                     <div className="mb-2">

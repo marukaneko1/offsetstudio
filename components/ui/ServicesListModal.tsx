@@ -344,24 +344,24 @@ export default function ServicesListModal({
                 {services.map((service, index) => (
                   <tr
                     key={index}
-                    className="border-b border-white/5 hover:bg-white/5 transition-colors"
+                    className="group border-b border-white/5 hover:bg-white transition-all duration-300 cursor-pointer"
                   >
-                    <td className="py-3 px-4 text-sm text-white/90 font-medium">
+                    <td className="py-3 px-4 text-sm text-white/90 font-medium transition-colors duration-300 group-hover:text-black">
                       {service.category}
                     </td>
-                    <td className="py-3 px-4 text-sm text-white/80">
+                    <td className="py-3 px-4 text-sm text-white/80 transition-colors duration-300 group-hover:text-black">
                       {service.service}
                     </td>
-                    <td className="py-3 px-4 text-sm text-white/70">
+                    <td className="py-3 px-4 text-sm text-white/70 transition-colors duration-300 group-hover:text-black/80">
                       {service.solves}
                     </td>
-                    <td className="py-3 px-4 text-sm text-white/70">
+                    <td className="py-3 px-4 text-sm text-white/70 transition-colors duration-300 group-hover:text-black/80">
                       {service.buyers}
                     </td>
-                    <td className="py-3 px-4 text-sm text-white/80">
+                    <td className="py-3 px-4 text-sm text-white/80 transition-colors duration-300 group-hover:text-black">
                       {service.midTier}
                     </td>
-                    <td className="py-3 px-4 text-sm text-white/80">
+                    <td className="py-3 px-4 text-sm text-white/80 transition-colors duration-300 group-hover:text-black">
                       {service.luxury}
                     </td>
                   </tr>

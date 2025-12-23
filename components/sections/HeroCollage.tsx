@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import Container from "@/components/ui/Container";
 import Cubes, { CubesRef } from "@/components/ui/Cubes";
 import ButtonPill from "@/components/ui/ButtonPill";
-import Link from "next/link";
 import { useBookingModal } from "@/components/providers/BookingModalProvider";
 
 export default function HeroCollage() {
@@ -156,12 +155,6 @@ export default function HeroCollage() {
 
         {/* CTAs below cubes */}
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-8 mt-8">
-          <Link
-            href="/projects"
-            className="text-white/70 transition-colors hover:text-white"
-          >
-            All Projects →
-          </Link>
           <ButtonPill variant="primary" onClick={openModal}>
             Book a Free Call
           </ButtonPill>

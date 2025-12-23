@@ -35,6 +35,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const filterRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [internalActiveIndex, setInternalActiveIndex] = useState<number>(initialActiveIndex);
+  const hasInteracted = useRef<boolean>(false);
   
   // Use external activeIndex if provided, otherwise use internal state
   const activeIndex = externalActiveIndex !== undefined ? externalActiveIndex : internalActiveIndex;
@@ -110,7 +111,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       width: `${pos.width}px`,
       height: `${pos.height}px`,
     };
-    Object.assign(filterRef.current.style, styles);
+    Object.assign(filterRef.current.style, { ...styles, opacity: "1" });
     Object.assign(textRef.current.style, styles);
     textRef.current.innerText = element.innerText;
   };
@@ -119,6 +120,9 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     e.preventDefault();
     const targetEl = e.currentTarget;
     if (activeIndex === index) return;
+
+    // Mark that user has interacted
+    hasInteracted.current = true;
 
     // Only update internal state if not controlled externally
     if (externalActiveIndex === undefined) {
@@ -133,9 +137,15 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
     if (textRef.current) {
       textRef.current.classList.remove("active");
+      textRef.current.style.opacity = "0";
       // Force reflow
       void textRef.current.offsetWidth;
-      textRef.current.classList.add("active");
+      requestAnimationFrame(() => {
+        if (textRef.current) {
+          textRef.current.classList.add("active");
+          textRef.current.style.opacity = "1";
+        }
+      });
     }
 
     if (filterRef.current) {
@@ -161,17 +171,31 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
   useEffect(() => {
     if (!navRef.current || !containerRef.current) return;
-    const activeLi = navRef.current.querySelectorAll("li")[activeIndex] as HTMLElement;
-    if (activeLi) {
-      updateEffectPosition(activeLi);
-      
-      // Update text effect when activeIndex changes externally
-      if (textRef.current && externalActiveIndex !== undefined) {
-        textRef.current.classList.remove("active");
-        void textRef.current.offsetWidth; // Force reflow
-        textRef.current.classList.add("active");
-      }
+    
+    // Ensure text effect is hidden on initial load
+    if (textRef.current && !hasInteracted.current) {
+      textRef.current.classList.remove("active");
+      textRef.current.style.opacity = "0";
     }
+    
+    // Small delay to ensure layout is complete before positioning
+    const timeoutId = setTimeout(() => {
+      const activeLi = navRef.current?.querySelectorAll("li")[activeIndex] as HTMLElement;
+      if (activeLi && filterRef.current && textRef.current) {
+        updateEffectPosition(activeLi);
+        
+        // Only show text effect if user has interacted
+        if (hasInteracted.current) {
+          requestAnimationFrame(() => {
+            if (textRef.current) {
+              textRef.current.classList.add("active");
+              textRef.current.style.opacity = "1";
+            }
+          });
+        }
+      }
+    }, 50);
+    
     const resizeObserver = new ResizeObserver(() => {
       const currentActiveLi = navRef.current?.querySelectorAll("li")[activeIndex] as HTMLElement;
       if (currentActiveLi) {
@@ -179,7 +203,11 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       }
     });
     resizeObserver.observe(containerRef.current);
-    return () => resizeObserver.disconnect();
+    
+    return () => {
+      clearTimeout(timeoutId);
+      resizeObserver.disconnect();
+    };
   }, [activeIndex, externalActiveIndex]);
 
   return (
@@ -297,8 +325,11 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             }
           }
           li.active {
-            color: black;
+            color: black !important;
             text-shadow: none;
+          }
+          li.active a {
+            color: black !important;
           }
           li.active::after {
             opacity: 1;
@@ -338,7 +369,9 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                   href={item.href}
                   onClick={(e) => handleClick(e, index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
-                  className="inline-block px-4 py-2 outline-none"
+                  className={`inline-block px-4 py-2 outline-none transition-colors duration-300 ${
+                    activeIndex === index ? "text-black" : "text-white"
+                  }`}
                 >
                   {item.label}
                 </a>
@@ -346,8 +379,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             ))}
           </ul>
         </nav>
-        <span className="effect filter" ref={filterRef} />
-        <span className="effect text" ref={textRef} />
+        <span className="effect filter" ref={filterRef} style={{ opacity: 0 }} />
+        <span className="effect text" ref={textRef} style={{ opacity: 0 }} />
       </div>
     </>
   );

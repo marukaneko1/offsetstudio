@@ -20,16 +20,18 @@ export default function Stats() {
             {stats.map((stat, index) => (
               <div
                 key={stat.value}
-                className={`text-center ${
+                className={`text-center transition-all duration-300 hover:scale-105 hover:opacity-100 cursor-default group ${
                   index < stats.length - 1
                     ? "border-b border-white/10 pb-8 md:border-b-0 md:border-r md:pb-0 md:pr-8"
                     : ""
                 }`}
               >
-                <div className="mb-2 text-4xl font-light text-white md:text-5xl">
+                <div className="mb-2 text-4xl font-light text-white md:text-5xl transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
                   {stat.value}
                 </div>
-                <div className="text-sm text-white/60">{stat.label}</div>
+                <div className="text-sm text-white/60 transition-all duration-300 group-hover:text-white/90">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>

@@ -3,9 +3,7 @@ import Hero from "@/components/sections/Hero";
 import HeroCollage from "@/components/sections/HeroCollage";
 import ProjectsMosaic from "@/components/sections/ProjectsMosaic";
 import ProjectsCarouselRow from "@/components/sections/ProjectsCarouselRow";
-import ProjectsCTA from "@/components/sections/ProjectsCTA";
 import About from "@/components/sections/About";
-import RecentWorks from "@/components/sections/RecentWorks";
 import Process from "@/components/sections/Process";
 import Services from "@/components/sections/Services";
 import Reviews from "@/components/sections/Reviews";
@@ -22,9 +20,7 @@ export default function Home() {
       <ProjectsMosaic />
       <HeroCollage />
       <ProjectsCarouselRow />
-      <ProjectsCTA />
       <About />
-      <RecentWorks />
       <Process />
       <Services />
       <Reviews />

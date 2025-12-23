@@ -5,9 +5,7 @@ import Link from "next/link";
 
 type SectionId =
   | "hero"
-  | "projects"
   | "about"
-  | "recent-works"
   | "process"
   | "services"
   | "reviews"
@@ -17,9 +15,7 @@ type SectionId =
 
 const sections: { id: SectionId; label: string }[] = [
   { id: "hero", label: "Top" },
-  { id: "projects", label: "Projects" },
   { id: "about", label: "About" },
-  { id: "recent-works", label: "Works" },
   { id: "process", label: "Process" },
   { id: "services", label: "Services" },
   { id: "reviews", label: "Reviews" },

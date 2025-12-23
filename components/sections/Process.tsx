@@ -86,7 +86,6 @@ export default function Process() {
                   <ButtonPill variant="primary" onClick={openModal}>
                     Book a Free Call
                   </ButtonPill>
-                  <ButtonPill variant="secondary">See Projects</ButtonPill>
                 </div>
               </div>
 
