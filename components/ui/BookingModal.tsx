@@ -196,7 +196,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
         <div className="mb-4 md:mb-6 pr-8 md:pr-10">
           <h2 className="text-2xl md:text-3xl font-light text-white">Book a Free Call</h2>
           <p className="mt-2 text-sm md:text-base text-white/60">
-            Fill out the form below and we'll get back to you soon.
+            Fill out the form below and we&apos;ll get back to you soon.
           </p>
         </div>
 
@@ -356,7 +356,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
             </button>
             {submitStatus === "success" && (
               <p className="mt-2 text-center text-sm text-green-400">
-                Thank you! We'll get back to you soon.
+                Thank you! We&apos;ll get back to you soon.
               </p>
             )}
             {submitStatus === "error" && (
