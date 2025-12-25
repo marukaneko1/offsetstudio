@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { saveSubmission } from "./save-submission";
 
 // ClickUp API configuration
 // NOTE: For production, use environment variables. Personal API Token is recommended over OAuth2 for server-to-server.
@@ -162,6 +163,23 @@ export async function POST(request: NextRequest) {
     console.log("=== NEW BOOKING SUBMISSION ===");
     console.log(JSON.stringify(submissionData, null, 2));
     console.log("=============================");
+
+    // Save submission to local storage for admin panel
+    try {
+      await saveSubmission({
+        fullName: submissionData.fullName,
+        companyName: submissionData.companyName,
+        email: submissionData.email,
+        phoneNumber: submissionData.phoneNumber,
+        website: submissionData.website,
+        services: submissionData.services,
+        submittedAt: submissionData.submittedAt,
+      });
+      console.log("Submission saved to local storage");
+    } catch (saveError) {
+      console.error("Error saving submission to local storage:", saveError);
+      // Don't fail the request if local save fails
+    }
 
     // Create document in ClickUp
     try {
