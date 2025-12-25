@@ -11,6 +11,8 @@ interface Submission {
   phoneNumber: string;
   website: string;
   services: string[];
+  serviceDescription: string;
+  budget: string;
   submittedAt: string;
 }
 
@@ -289,6 +291,26 @@ export default function AdminPage() {
                             </span>
                           ))}
                         </div>
+                      </div>
+                    )}
+
+                    {(submission.serviceDescription && submission.serviceDescription.trim()) && (
+                      <div>
+                        <div className="text-sm text-white/60 mb-2">
+                          Service Description:
+                        </div>
+                        <p className="text-sm text-white/80 bg-white/5 rounded-lg p-3 border border-white/10 whitespace-pre-wrap">
+                          {submission.serviceDescription}
+                        </p>
+                      </div>
+                    )}
+
+                    {(submission.budget && submission.budget.trim()) && (
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-white/60">Budget:</span>
+                        <span className="text-sm font-medium text-white">
+                          {submission.budget}
+                        </span>
                       </div>
                     )}
                   </div>

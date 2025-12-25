@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS submissions (
   phone_number TEXT NOT NULL,
   website TEXT,
   services JSONB NOT NULL DEFAULT '[]'::jsonb,
+  service_description TEXT,
+  budget TEXT,
   submitted_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
 );

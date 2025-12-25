@@ -12,6 +12,8 @@ export interface Submission {
   phoneNumber: string;
   website: string;
   services: string[];
+  serviceDescription: string;
+  budget: string;
   submittedAt: string;
 }
 
@@ -44,6 +46,8 @@ async function saveToSupabase(data: Omit<Submission, "id">): Promise<string | nu
         phone_number: data.phoneNumber,
         website: data.website || null,
         services: data.services,
+        service_description: data.serviceDescription || null,
+        budget: data.budget || null,
         submitted_at: data.submittedAt,
       })
       .select("id")

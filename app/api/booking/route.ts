@@ -74,6 +74,8 @@ async function createClickUpDocument(
     phoneNumber: string;
     website: string;
     services: string[];
+    serviceDescription?: string;
+    budget?: string;
   }
 ): Promise<any> {
   // Format services as a readable list
@@ -82,7 +84,7 @@ async function createClickUpDocument(
     : formData.services;
 
   // Format the document content
-  const documentContent = `**New Call Request - ${formData.fullName}**
+  let documentContent = `**New Call Request - ${formData.fullName}**
 
 **Contact Information:**
 - **Name:** ${formData.fullName}
@@ -93,9 +95,19 @@ async function createClickUpDocument(
 
 **Selected Services:**
 - ${servicesList}
-
-**Submitted At:** ${new Date().toLocaleString()}
 `;
+
+  // Add service description if provided
+  if (formData.serviceDescription && formData.serviceDescription.trim()) {
+    documentContent += `\n**Service Description:**\n${formData.serviceDescription}\n`;
+  }
+
+  // Add budget if provided
+  if (formData.budget && formData.budget.trim()) {
+    documentContent += `\n**Budget:** ${formData.budget}\n`;
+  }
+
+  documentContent += `\n**Submitted At:** ${new Date().toLocaleString()}`;
 
   const documentName = `New Call Request - ${formData.fullName} - ${formData.companyName}`;
 
@@ -131,7 +143,7 @@ async function createClickUpDocument(
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { fullName, companyName, email, phoneNumber, website, services } = body;
+    const { fullName, companyName, email, phoneNumber, website, services, serviceDescription, budget } = body;
 
     // Validate required fields
     if (!fullName || !companyName || !email || !phoneNumber) {
@@ -156,6 +168,8 @@ export async function POST(request: NextRequest) {
       phoneNumber,
       website: website || "Not provided",
       services: Array.isArray(services) ? services : [services],
+      serviceDescription: serviceDescription || "",
+      budget: budget || "",
       submittedAt: new Date().toISOString(),
     };
 
@@ -173,6 +187,8 @@ export async function POST(request: NextRequest) {
         phoneNumber: submissionData.phoneNumber,
         website: submissionData.website,
         services: submissionData.services,
+        serviceDescription: submissionData.serviceDescription,
+        budget: submissionData.budget,
         submittedAt: submissionData.submittedAt,
       });
       console.log("Submission saved to local storage");
@@ -228,7 +244,7 @@ Website: ${website || "Not provided"}
 Selected Services:
 ${servicesList}
 
-Submitted at: ${new Date().toLocaleString()}
+${serviceDescription ? `Service Description:\n${serviceDescription}\n\n` : ""}${budget ? `Budget: ${budget}\n\n` : ""}Submitted at: ${new Date().toLocaleString()}
             `.trim(),
           }),
         });

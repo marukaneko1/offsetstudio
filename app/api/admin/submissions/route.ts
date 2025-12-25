@@ -13,6 +13,8 @@ export interface Submission {
   phoneNumber: string;
   website: string;
   services: string[];
+  serviceDescription: string;
+  budget: string;
   submittedAt: string;
 }
 
@@ -49,6 +51,8 @@ async function getSubmissionsFromSupabase(): Promise<Submission[]> {
       phoneNumber: row.phone_number,
       website: row.website || "",
       services: Array.isArray(row.services) ? row.services : [],
+      serviceDescription: row.service_description || "",
+      budget: row.budget || "",
       submittedAt: row.submitted_at,
     }));
   } catch (error) {

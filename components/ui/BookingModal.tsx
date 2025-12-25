@@ -50,6 +50,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     phoneNumber: "",
     website: "",
     services: [] as string[],
+    serviceDescription: "",
+    budget: "",
   });
 
   useEffect(() => {
@@ -106,6 +108,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
         phoneNumber: "",
         website: "",
         services: [],
+        serviceDescription: "",
+        budget: "",
       });
 
       // Show success message and close after a delay
@@ -123,12 +127,37 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleBudgetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Remove all non-numeric characters
+    const numericValue = e.target.value.replace(/[^0-9]/g, "");
+    
+    // Format as currency
+    if (numericValue === "") {
+      setFormData({
+        ...formData,
+        budget: "",
+      });
+    } else {
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(Number(numericValue));
+      
+      setFormData({
+        ...formData,
+        budget: formatted,
+      });
+    }
   };
 
   const handleServiceToggle = (service: string) => {
@@ -339,6 +368,44 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 Please select at least one service
               </p>
             )}
+          </div>
+
+          {/* Service Description */}
+          <div>
+            <label
+              htmlFor="serviceDescription"
+              className="mb-2 block text-sm font-medium text-white/80"
+            >
+              Explain service that&apos;s required <span className="text-white/50">(optional)</span>
+            </label>
+            <textarea
+              id="serviceDescription"
+              name="serviceDescription"
+              value={formData.serviceDescription}
+              onChange={handleChange}
+              rows={4}
+              className="w-full rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 resize-none"
+              placeholder="Tell us more about the services you need..."
+            />
+          </div>
+
+          {/* Budget */}
+          <div>
+            <label
+              htmlFor="budget"
+              className="mb-2 block text-sm font-medium text-white/80"
+            >
+              Budget <span className="text-white/50">(optional)</span>
+            </label>
+            <input
+              type="text"
+              id="budget"
+              name="budget"
+              value={formData.budget}
+              onChange={handleBudgetChange}
+              className="w-full rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/20"
+              placeholder="$0"
+            />
           </div>
 
           {/* Submit Button */}
